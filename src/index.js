@@ -4,9 +4,11 @@ const refs = {
   formEl: document.querySelector('.search-form'),
   searchBtnEl: document.querySelector('.search-btn'),
   galleryEl: document.querySelector('.gallery'),
+  loadMoreBtn: document.querySelector('.js-load-more'),
 };
 
 refs.formEl.addEventListener('submit', onSearchFormSubmit);
+refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
 
 const photoApi = new PhotoApi();
 
@@ -22,11 +24,17 @@ function onSearchFormSubmit(event) {
       console.log('data', data);
       // console.log('look', data.results);
       refs.galleryEl.innerHTML = renderMarkup(data.hits);
-      console.log('look', renderMarkup(data.hits));
+      // console.log('look', renderMarkup(data.hits));
+      refs.loadMoreBtn.classList.remove('.is-hidden');
     })
     .catch(err => {
       console.log(err);
     });
+}
+
+function onLoadMoreBtnClick(e) {
+  photoApi.page += 1;
+  photoApi.searchPhoto();
 }
 
 function renderMarkup(data) {
