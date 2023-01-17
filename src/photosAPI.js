@@ -2,10 +2,12 @@ BASE_URL = 'https://pixabay.com/api/';
 API_KEY = '32875962-75e3deeecb029b3447d6e6fc0';
 
 export class PhotoApi {
-  page = 1;
-  query = '';
+  constructor() {
+    this.page = 1;
+    this.query = '';
+  }
 
-  searchPhoto(query) {
+  searchPhoto() {
     const params = new URLSearchParams({
       q: this.query,
       image_type: 'photo',
@@ -22,11 +24,5 @@ export class PhotoApi {
       }
       return res.json();
     });
-
-    // return fetch(
-    //   'https://pixabay.com/api/?key=32875962-75e3deeecb029b3447d6e6fc0&q=brit&image_type=photo&orientation=horizontal&safesearch=true'
-    // ).then(res => {
-    //   console.log(res);
-    // });
   }
 }
