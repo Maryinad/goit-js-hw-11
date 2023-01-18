@@ -47,12 +47,12 @@ function onSearchFormSubmit(event) {
     })
     .finally(() => {
       refs.searchBtnEl.disabled = false;
+      simpLightbox.refresh();
     });
 }
 
 let simpLightbox = new SimpleLightbox('.gallery a', {
   captions: true,
-  enableKeyboard: true,
   captionDelay: 250,
 });
 
@@ -63,6 +63,17 @@ function onLoadMoreBtnClick(e) {
     .then(({ data }) => {
       refs.galleryEl.insertAdjacentHTML('beforeend', renderMarkup(data.hits));
       Notify.info(`Hooray! We found ${data.totalHits} images.`);
+
+      // simpLightbox.refresh();
+
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
 
       if (data.hits.length === 0) {
         refs.loadMoreBtn.classList.add('js-is-hidden');
@@ -83,8 +94,9 @@ function renderMarkup(data) {
     .map(el => {
       return `<div class="photo-card">
        <a class="photo-card-item" href="${el.largeImageURL}">
-    <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width = "300"  class = "photo-card-img" />
+      <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width = "300"  class = "photo-card-img" />
       </a>
+    
      <div class="info">
      <p class="info-item">
       <b>Likes </b><span class="info-item-el">${el.likes}</span>
