@@ -50,7 +50,7 @@ function onSearchFormSubmit(event) {
     });
 }
 
-let simpLightbox = new SimpleLightbox('.photo-card a', {
+let simpLightbox = new SimpleLightbox('.gallery a', {
   captions: true,
   enableKeyboard: true,
   captionDelay: 250,
