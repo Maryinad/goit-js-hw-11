@@ -1,8 +1,8 @@
 import { PhotoApi } from './photosAPI';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import axios from 'axios';
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = {
   formEl: document.querySelector('.search-form'),
@@ -26,13 +26,13 @@ function onSearchFormSubmit(event) {
 
   photoApi
     .searchPhoto()
-    .then(data => {
+    .then(({ data }) => {
+      // console.log(data);
       if (data.hits.length === 0) {
         alert('Sorry, not found this image');
         event.target.reset();
         refs.galleryEl.innerHTML = '';
         refs.loadMoreBtn.classList.add('js-is-hidden');
-
         return;
       }
       if (data.total >= 40) {
@@ -50,29 +50,29 @@ function onSearchFormSubmit(event) {
     });
 }
 
-// let simpLightbox = new SimpleLightbox('.photo-card a', {
-//   captions: true,
-//   captionsData: 'alt',
-//   captionDelay: 250,
-// });
+let simpLightbox = new SimpleLightbox('.photo-card a', {
+  captions: true,
+  enableKeyboard: true,
+  captionDelay: 250,
+});
 
 function onLoadMoreBtnClick(e) {
   photoApi.page += 1;
   photoApi
     .searchPhoto()
-    .then(data => {
+    .then(({ data }) => {
       refs.galleryEl.insertAdjacentHTML('beforeend', renderMarkup(data.hits));
       Notify.info(`Hooray! We found ${data.totalHits} images.`);
-      // SimpleLightbox.refresh();
+      SimpleLightbox.refresh();
 
-      // const { height: cardHeight } = document
-      //   .querySelector('.gallery')
-      //   .firstElementChild.getBoundingClientRect();
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
 
-      // window.scrollBy({
-      //   top: cardHeight * 2,
-      //   behavior: 'smooth',
-      // });
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
 
       if (data.hits.length === 0) {
         refs.loadMoreBtn.classList.add('js-is-hidden');
@@ -93,10 +93,9 @@ function renderMarkup(data) {
   const markup = data
     .map(el => {
       return `<div class="photo-card">
-    //   <a class="photo-card-item" href="${el.largeImageURL}">
-    
-    //  </a>
-      <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width = "300"  class = "photo-card-img" />
+       <a class="photo-card-item" href="${el.largeImageURL}">
+    <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" width = "300"  class = "photo-card-img" />
+      </a>
      <div class="info">
      <p class="info-item">
       <b>Likes </b><span class="info-item-el">${el.likes}</span>
