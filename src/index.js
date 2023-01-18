@@ -50,11 +50,11 @@ function onSearchFormSubmit(event) {
     });
 }
 
-let simpLightbox = new SimpleLightbox('.photo-card a', {
-  captions: true,
-  enableKeyboard: true,
-  captionDelay: 250,
-});
+// let simpLightbox = new SimpleLightbox('.photo-card a', {
+//   captions: true,
+//   enableKeyboard: true,
+//   captionDelay: 250,
+// });
 
 function onLoadMoreBtnClick(e) {
   photoApi.page += 1;
@@ -63,16 +63,16 @@ function onLoadMoreBtnClick(e) {
     .then(({ data }) => {
       refs.galleryEl.insertAdjacentHTML('beforeend', renderMarkup(data.hits));
       Notify.info(`Hooray! We found ${data.totalHits} images.`);
-      SimpleLightbox.refresh();
+      // SimpleLightbox.refresh();
 
-      const { height: cardHeight } = document
-        .querySelector('.gallery')
-        .firstElementChild.getBoundingClientRect();
+      // const { height: cardHeight } = document
+      //   .querySelector('.gallery')
+      //   .firstElementChild.getBoundingClientRect();
 
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
+      // window.scrollBy({
+      //   top: cardHeight * 2,
+      //   behavior: 'smooth',
+      // });
 
       if (data.hits.length === 0) {
         refs.loadMoreBtn.classList.add('js-is-hidden');
@@ -81,7 +81,6 @@ function onLoadMoreBtnClick(e) {
         );
       }
     })
-
     .catch(err => {
       console.log(err);
     });
