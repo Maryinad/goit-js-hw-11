@@ -22,9 +22,7 @@ p {
 
 #search-box {
   font: inherit;
-  padding: 8px;
   max-width: 320px;
-  margin-bottom: 16px;
 }
 
 .container {
@@ -60,30 +58,63 @@ p {
 .info-item-el {
   display: block;
   text-align: center;
-  font-size: 12px;
+  margin-top: 8px;
 }
 
 .photo-card {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  margin-top: 20px;
 }
 
-.load-more {
-  font-size: 14px;
-  padding: 10px 20px;
-  background-color: #2ecc71;
-  color: #ffffff;
-  border: none;
-  text-transform: uppercase;
+.photo-card-img {
+  height: 250px;
+  object-fit: cover;
+}
+
+.load-more.js-is-hidden {
+  display: none;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+  background: rgb(49, 56, 194);
+}
+
+.search-form-input {
+  width: 250px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+
+.search-btn {
   cursor: pointer;
-  margin-left: 10px;
-  transition: background-color 250ms linear;
+  width: 80px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid grey;
+  border-radius: 2px;
+  background-color: #ffffff;
 }
 
 .load-more {
   display: block;
   margin: 0 auto;
-}
-
-.load-more.is-hidden {
-  display: none;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid grey;
+  border-radius: 2px;
+  color: white;
+  background-color: rgb(49, 56, 194);
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
