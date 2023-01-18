@@ -1,4 +1,6 @@
 import { PhotoApi } from './photosAPI';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import axios from 'axios';
 // import SimpleLightbox from 'simplelightbox';
 // import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -60,7 +62,7 @@ function onLoadMoreBtnClick(e) {
     .searchPhoto()
     .then(data => {
       refs.galleryEl.insertAdjacentHTML('beforeend', renderMarkup(data.hits));
-      alert(`Hooray! We found ${data.totalHits} images.`);
+      Notify.info(`Hooray! We found ${data.totalHits} images.`);
       // SimpleLightbox.refresh();
 
       // const { height: cardHeight } = document
@@ -74,7 +76,9 @@ function onLoadMoreBtnClick(e) {
 
       if (data.hits.length === 0) {
         refs.loadMoreBtn.classList.add('js-is-hidden');
-        alert("We're sorry, but you've reached the end of search results.");
+        Notify.failure(
+          "We're sorry, but you've reached the end of search results."
+        );
       }
     })
 
